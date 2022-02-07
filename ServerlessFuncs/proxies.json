@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json.schemastore.org/proxies.json",
+  "proxies": {
+    "ProxyHomePage": {
+      "matchCondition": {
+        "methods": [ "GET" ],
+        "route": "/"
+      },
+      "backendUri": "https://storageaccountteren86fa.blob.core.windows.net/public-static/index.html"
+    },
+    "proxyContent": {
+      "matchCondition": {
+        "methods": [ "GET" ],
+        "route": "/{*restOfPath}"
+      },
+      "backendUri": "https://storageaccountteren86fa.blob.core.windows.net/public-static/content/{restOfPath}"
+    }
+  }
+}
