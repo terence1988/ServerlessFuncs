@@ -11,11 +11,12 @@ using Microsoft.Azure.Cosmos.Table;
 
 namespace ServerlessFuncs
 {
+    //The API is again bridged via the Cloud Provider redirections rather than in code. TO DO: Terraform?
     public static class TodoApi
     {
         [FunctionName("CreateTodo")]
         public static async Task<IActionResult> CreateTodo(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "/api/todo")] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "todo")] HttpRequest req,
             [Table("todos", Connection = "AzureWebJobsStorage")] IAsyncCollector<TodoTableEntity> todoTable,
             [Queue("todos", Connection = "AzureWebJobsStorage")] IAsyncCollector<Todo> todoQueue,
            ILogger log)
@@ -36,7 +37,7 @@ namespace ServerlessFuncs
 
         [FunctionName("GetTodos")]
         public static async Task<IActionResult> GetTodos(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "/api/todo")] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "todo")] HttpRequest req,
             [Table("todos", Connection = "AzureWebJobsStorage")] CloudTable todoTable,
             ILogger log)
         {
